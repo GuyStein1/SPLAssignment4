@@ -4,31 +4,62 @@ from dbtools import Dao
  
 # Data Transfer Objects:
 class Employee(object):
-    #TODO: implement
-    pass
+    def __init__(self, id, name, salary, branche):
+        self.id = int(id)
+        self.name = name
+        self.salary = float(salary)
+        self.branche = int(branche)
+
+    def __str__(self):
+        return f"({self.id}, '{self.name}', {self.salary}, {self.branche})"
  
-class Supplier(object):
-    #TODO: implement
-    pass
+class Supplier:
+    def __init__(self, id, name, contact_information):
+        self.id = int(id)
+        self.name = name
+        self.contact_information = contact_information
 
-class Product(object):
-    #TODO: implement
-    pass
+    def __str__(self):
+        return f"({self.id}, '{self.name}', '{self.contact_information}')"
 
-class Branche(object):
-    #TODO: implement
-    pass
+class Product:
+    def __init__(self, id, description, price, quantity):
+        self.id = int(id)
+        self.description = description
+        self.price = float(price)
+        self.quantity = int(quantity)
 
-class Activitie(object):
-    #TODO: implement
-    pass
- 
+    def __str__(self):
+        return f"({self.id}, '{self.description}', {self.price}, {self.quantity})"
+
+class Branche:
+    def __init__(self, id, location, number_of_employees):
+        self.id = int(id)
+        self.location = location
+        self.number_of_employees = int(number_of_employees)
+
+    def __str__(self):
+        return f"({self.id}, '{self.location}', {self.number_of_employees})"
+
+class Activitie:
+    def __init__(self, product_id, quantity, activator_id, date):
+        self.product_id = int(product_id)
+        self.quantity = int(quantity)
+        self.activator_id = int(activator_id)
+        self.date = date  
+
+    def __str__(self):
+        return f"({self.product_id}, {self.quantity}, {self.activator_id}, '{self.date}')"
  
 #Repository
 class Repository(object):
     def __init__(self):
         self._conn = sqlite3.connect('bgumart.db')
-        #TODO: complete
+        self.employees = Dao(Employee, self._conn)
+        self.suppliers = Dao(Supplier, self._conn)
+        self.products = Dao(Product, self._conn)
+        self.branches = Dao(Branche, self._conn)
+        self.activities = Dao(Activitie, self._conn)
  
     def _close(self):
         self._conn.commit()
