@@ -24,7 +24,7 @@ def main(args : list[str]):
                 supplier = repo.suppliers.find(id=activator_id)
                 if supplier:  # Ensure the supplier exists
                     product.quantity += quantity  # Increase stock
-                    repo.products.insert(product)  # Update product quantity
+                    repo._conn.execute("UPDATE products SET quantity = ? WHERE id = ?", (product.quantity, product.id))
                     repo.activities.insert(Activitie(product_id, quantity, activator_id, date))
 
             # Handle sale (employee sells stock)
@@ -32,7 +32,7 @@ def main(args : list[str]):
                 employee = repo.employees.find(id=activator_id)
                 if employee and product.quantity >= abs(quantity):  # Ensure employee exists & enough stock
                     product.quantity += quantity  # Reduce stock
-                    repo.products.insert(product)  # Update product quantity
+                    repo._conn.execute("UPDATE products SET quantity = ? WHERE id = ?", (product.quantity, product.id))
                     repo.activities.insert(Activitie(product_id, quantity, activator_id, date))
 
 if __name__ == '__main__':
