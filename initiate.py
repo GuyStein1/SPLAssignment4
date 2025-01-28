@@ -9,6 +9,11 @@ def add_branche(splittedline : list[str]):
 
 def add_supplier(splittedline : list[str]):
     id, name, contact_info = splittedline
+
+    # Ensure the ID is not already used by an employee
+    if repo.employees.find(id=int(id)):
+        return  # Ignore if the ID is already an employee
+    
     repo.suppliers.insert(Supplier(int(id), name, contact_info))
 
 def add_product(splittedline : list[str]):
@@ -17,6 +22,11 @@ def add_product(splittedline : list[str]):
 
 def add_employee(splittedline : list[str]):
     id, name, salary, branch_id = splittedline
+
+    # Ensure the ID is not already used by a supplier
+    if repo.suppliers.find(id=int(id)):
+        return  # Ignore if the ID is already a supplier
+    
     repo.employees.insert(Employee(int(id), name, float(salary), int(branch_id)))
 
 adders = {  "B": add_branche,
