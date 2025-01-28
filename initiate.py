@@ -4,20 +4,20 @@ import sys
 import os
 
 def add_branche(splittedline : list[str]):
-    #TODO: add the branch into the repo
-    pass
+    id, location, num_employees = splittedline
+    repo.branches.insert(Branche(int(id), location, int(num_employees)))
 
 def add_supplier(splittedline : list[str]):
-    #TODO: insert the supplier into the repo
-    pass
+    id, name, contact_info = splittedline
+    repo.suppliers.insert(Supplier(int(id), name, contact_info))
 
 def add_product(splittedline : list[str]):
-    #TODO: insert product
-    pass
+    id, description, price, quantity = splittedline
+    repo.products.insert(Product(int(id), description, float(price), int(quantity)))
 
 def add_employee(splittedline : list[str]):
-    #TODO: insert employee
-    pass
+    id, name, salary, branch_id = splittedline
+    repo.employees.insert(Employee(int(id), name, float(salary), int(branch_id)))
 
 adders = {  "B": add_branche,
             "S": add_supplier,
@@ -26,11 +26,13 @@ adders = {  "B": add_branche,
 
 def main(args : list[str]):
     inputfilename = args[1]
+
     # delete the database file if it exists
     repo._close()
-    # uncomment if needed
-    # if os.path.isfile("bgumart.db"):
-    #     os.remove("bgumart.db")
+    if os.path.isfile("bgumart.db"):
+        os.remove("bgumart.db")
+
+    # Reinitialize database
     repo.__init__()
     repo.create_tables()
     with open(inputfilename) as inputfile:

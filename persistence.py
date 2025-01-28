@@ -13,7 +13,7 @@ class Employee(object):
     def __str__(self):
         return f"({self.id}, '{self.name}', {self.salary}, {self.branche})"
  
-class Supplier:
+class Supplier(object):
     def __init__(self, id, name, contact_information):
         self.id = int(id)
         self.name = name
@@ -22,7 +22,7 @@ class Supplier:
     def __str__(self):
         return f"({self.id}, '{self.name}', '{self.contact_information}')"
 
-class Product:
+class Product(object):
     def __init__(self, id, description, price, quantity):
         self.id = int(id)
         self.description = description
@@ -32,7 +32,7 @@ class Product:
     def __str__(self):
         return f"({self.id}, '{self.description}', {self.price}, {self.quantity})"
 
-class Branche:
+class Branche(object):
     def __init__(self, id, location, number_of_employees):
         self.id = int(id)
         self.location = location
@@ -41,7 +41,7 @@ class Branche:
     def __str__(self):
         return f"({self.id}, '{self.location}', {self.number_of_employees})"
 
-class Activitie:
+class Activitie(object):
     def __init__(self, product_id, quantity, activator_id, date):
         self.product_id = int(product_id)
         self.quantity = int(quantity)
